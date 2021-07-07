@@ -11,7 +11,7 @@ const initializeConnectionDB = async () => {
         useCreateIndex: true
       }
     );
-    console.log("connection established");
+    console.log("DB connection established");
   } catch (err) {
     console.log("Error in establishing connection " + err);
   }

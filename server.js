@@ -1,8 +1,15 @@
 const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
 const dbConnect = require("./config/dbConnect");
-const videoRoute = require("./routes/video");
-const app = express();
+const videoRoute = require("./routes/video.router");
+const userRoute = require("./routes/user.router");
 
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(morgan("dev"));
 dbConnect();
 
 app.get("/", (req, res) => {
@@ -12,10 +19,24 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api", videoRoute);
+app.use("/videos", videoRoute);
+app.use("/user", userRoute);
 
-const PORT = 3000;
+app.use((req, res, next) => {
+  const error = new Error("Not Found");
+  error.status = 404;
+  next(error);
+});
 
-app.listen(PORT, () => {
-  console.log("Server Started on port 3000");
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message
+    }
+  });
+});
+
+app.listen(3001, () => {
+  console.log("server started on port 3001");
 });
