@@ -27,28 +27,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// userSchema.post("save", function(error, doc, next) {
-//   if (error.name === "MongoError" && error.code === 11000) {
-//     next(new Error("There was a duplicate key error"));
-//   } else {
-//     next();
-//   }
-// });
-
 module.exports = mongoose.model("User", userSchema);
-
-const object = new User({});
-object.save(function(err, doc) {
-  if (err) {
-    const error = mongooseErrorHandler(err);
-    console.log(error);
-    /**
-     * Error [MongooseValidatorError]: "name" is required
-     * message: "name" is required
-     * name: 'MongooseValidatorError',
-     * path: 'name',
-     * kind: 'required',
-     * value: undefined
-     */
-  }
-});

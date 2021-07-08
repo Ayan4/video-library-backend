@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.use("/videos", videoRoute);
 app.use("/user", userRoute);
 
+// Error Handler routes
 app.use((req, res, next) => {
   const error = new Error("Not Found");
   error.status = 404;
@@ -37,6 +39,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("server started on port 3001");
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log("server started on port " + PORT);
 });
