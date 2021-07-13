@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const playlistSchema = new mongoose.Schema(
+const historySchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -20,4 +20,4 @@ const playlistSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Playlist", playlistSchema);
+module.exports = mongoose.model("HistoryVideo", historySchema);

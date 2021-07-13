@@ -30,11 +30,9 @@ exports.userSignUp = async (req, res) => {
         }
       });
     } catch (err) {
-      console.log(err.message);
       res.status(400).json({ success: false, message: "something went wrong" });
     }
   } catch (error) {
-    console.log(error.message);
     res.json({ success: false, message: "some error occured" });
   }
 };

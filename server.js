@@ -6,6 +6,10 @@ const morgan = require("morgan");
 const dbConnect = require("./config/dbConnect");
 const videoRoute = require("./routes/video.router");
 const userRoute = require("./routes/user.router");
+const playlistRoute = require("./routes/playlist.router");
+const likedPlaylistRoute = require("./routes/likedPlaylist.router");
+const watchLaterPlaylistRoute = require("./routes/watchLaterPlaylist.router");
+const historyRoute = require("./routes/history.router");
 
 const app = express();
 app.use(cors());
@@ -22,6 +26,10 @@ app.get("/", (req, res) => {
 
 app.use("/videos", videoRoute);
 app.use("/user", userRoute);
+app.use("/likedvideos", likedPlaylistRoute);
+app.use("/watchlater", watchLaterPlaylistRoute);
+app.use("/history", historyRoute);
+app.use("/playlist", playlistRoute);
 
 // Error Handler routes
 app.use((req, res, next) => {
