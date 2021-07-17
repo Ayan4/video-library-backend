@@ -29,7 +29,7 @@ exports.postComment = async (req, res) => {
       comment: req.body.comment
     });
     video = await video.save();
-    res.status(200).json({ success: true, message: "Comment added" });
+    res.status(200).json({ success: true, message: "Comment added", video });
   } catch (err) {
     res.status(500).json({ success: false, message: "failed to add comment" });
   }
@@ -52,7 +52,7 @@ exports.deleteComment = async (req, res) => {
     userComments.id(commentId).remove();
     video = await video.save();
 
-    res.status(200).json({ success: true, message: "Comment deleted" });
+    res.status(200).json({ success: true, message: "Comment deleted", video });
   } catch (err) {
     res
       .status(500)
