@@ -1,5 +1,23 @@
 const mongoose = require("mongoose");
 
+const childSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    name: {
+      type: String,
+      required: [true, "cannot add comment without username"]
+    },
+    comment: {
+      type: String,
+      required: [true, "cannot add blank comment"]
+    }
+  },
+  { timestamps: true }
+);
+
 const videoSchema = new mongoose.Schema(
   {
     channelDisplayPic: {
@@ -44,7 +62,8 @@ const videoSchema = new mongoose.Schema(
     category: {
       type: String,
       required: "video category is required"
-    }
+    },
+    comments: [childSchema]
   },
   { timestamps: true }
 );
