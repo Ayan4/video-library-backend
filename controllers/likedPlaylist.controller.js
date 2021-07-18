@@ -51,7 +51,11 @@ exports.removeFromLikedPlaylist = async (req, res) => {
     await likedPlaylist.save();
     res
       .status(200)
-      .json({ success: true, message: "Video Deleted Successfully" });
+      .json({
+        success: true,
+        message: "Video Deleted Successfully",
+        likedPlaylist
+      });
   } catch (err) {
     res
       .status(400)
