@@ -54,8 +54,10 @@ exports.deleteComment = async (req, res) => {
 
     userComments.id(commentId).remove();
     video = await video.save();
-
-    res.status(200).json({ success: true, message: "Comment deleted" });
+    const allVideos = await Video.find({});
+    res
+      .status(200)
+      .json({ success: true, message: "Comment deleted", allVideos });
   } catch (err) {
     res
       .status(500)
