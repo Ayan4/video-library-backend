@@ -48,9 +48,13 @@ exports.removeFromHistory = async (req, res) => {
       history.videos.pull({ _id: videoId });
     }
     await history.save();
+
+    history = await history.save();
+    history = await history.populate("videos").execPopulate();
+
     res
       .status(200)
-      .json({ success: true, message: "Video Deleted Successfully" });
+      .json({ success: true, message: "Video Deleted Successfully", history });
   } catch (err) {
     res
       .status(400)
