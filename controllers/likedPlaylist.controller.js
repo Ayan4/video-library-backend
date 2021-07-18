@@ -48,14 +48,15 @@ exports.removeFromLikedPlaylist = async (req, res) => {
     if (isVideoPresent) {
       likedPlaylist.videos.pull({ _id: videoId });
     }
-    await likedPlaylist.save();
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Video Deleted Successfully",
-        likedPlaylist
-      });
+
+    likedPlaylist = await likedPlaylist.save();
+    likedPlaylist = await likedPlaylist.populate("videos").execPopulate();
+
+    res.status(200).json({
+      success: true,
+      message: "Video Deleted Successfully",
+      likedPlaylist
+    });
   } catch (err) {
     res
       .status(400)
