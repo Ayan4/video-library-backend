@@ -53,14 +53,14 @@ exports.removeFromWatchLaterPlaylist = async (req, res) => {
       watchLaterPlaylist.videos.pull({ _id: videoId });
     }
     watchLaterPlaylist = await watchLaterPlaylist.save();
-    watchLaterPlaylist = await watchLaterPlaylist;
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Video Deleted Successfully",
-        watchLaterPlaylist
-      });
+    watchLaterPlaylist = await watchLaterPlaylist
+      .populate("videos")
+      .execPopulate();
+    res.status(200).json({
+      success: true,
+      message: "Video Deleted Successfully",
+      watchLaterPlaylist
+    });
   } catch (err) {
     res
       .status(400)
