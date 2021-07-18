@@ -29,7 +29,10 @@ exports.postComment = async (req, res) => {
       comment: req.body.comment
     });
     video = await video.save();
-    res.status(200).json({ success: true, message: "Comment added" });
+    const allVideos = await Video.find({});
+    res
+      .status(200)
+      .json({ success: true, message: "Comment added", allVideos });
   } catch (err) {
     res.status(500).json({ success: false, message: "failed to add comment" });
   }
