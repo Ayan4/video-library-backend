@@ -79,6 +79,30 @@ exports.addToPlaylist = async (req, res) => {
   }
 };
 
+exports.removePlaylist = async (req, res) => {
+  const id = req.user.userId;
+  const playlistId = req.params.playlistId;
+
+  try {
+    await Playlist.deleteOne({ user: id, _id: playlistId });
+
+    let playlists = await Playlist.find({ user: id });
+    playlists = await Promise.all(
+      await playlists.map(item => item.populate("videos").execPopulate())
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Playlist Deleted Successfully",
+      playlists
+    });
+  } catch (err) {
+    res
+      .status(400)
+      .json({ success: false, message: "could not delete the playlist" });
+  }
+};
+
 exports.removeFromPlaylist = async (req, res) => {
   const id = req.user.userId;
   const playlistId = req.params.playlistId;
