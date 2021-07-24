@@ -121,10 +121,18 @@ exports.removeFromPlaylist = async (req, res) => {
       playlist.videos.pull({ _id: videoId });
     }
     playlist = await playlist.save();
-    playlist = await playlist.populate("videos").execPopulate();
+
+    let playlists = await Playlist.find({ user: id });
+    playlists = await Promise.all(
+      await playlists.map(item => item.populate("videos").execPopulate())
+    );
     res
       .status(200)
-      .json({ success: true, message: "Video Deleted Successfully", playlist });
+      .json({
+        success: true,
+        message: "Video Deleted Successfully",
+        playlists
+      });
   } catch (err) {
     res
       .status(400)
