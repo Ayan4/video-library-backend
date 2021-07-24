@@ -70,8 +70,13 @@ exports.addToPlaylist = async (req, res) => {
     }
 
     playlist = await playlist.save();
-    playlist = await playlist.populate("videos").execPopulate();
-    res.status(200).json({ success: true, playlist });
+
+    let playlists = await Playlist.find({ user: id });
+    playlists = await Promise.all(
+      await playlists.map(item => item.populate("videos").execPopulate())
+    );
+
+    res.status(200).json({ success: true, playlists });
   } catch (err) {
     res
       .status(400)
