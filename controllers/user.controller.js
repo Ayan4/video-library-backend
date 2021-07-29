@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 exports.userSignUp = async (req, res) => {
   try {
-    const { firstName, email, password } = req.body;
+    const { firstName, email, password, isAdmin } = req.body;
     const findEmail = await User.findOne({ email: email });
     if (findEmail) {
       return res.status(409).json({
@@ -20,6 +20,7 @@ exports.userSignUp = async (req, res) => {
           const userCreds = new User({
             firstName,
             email,
+            isAdmin: isAdmin,
             password: hash
           });
           await userCreds.save();
@@ -64,7 +65,7 @@ exports.userLogin = async (req, res) => {
           token,
           name: foundUser.firstName,
           id: foundUser._id,
-          role: foundUser.role
+          isAdmin: foundUser.isAdmin
         };
 
         return res
