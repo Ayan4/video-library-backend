@@ -64,7 +64,7 @@ exports.userLogin = async (req, res) => {
           token,
           name: foundUser.firstName,
           id: foundUser._id,
-          isAdmin: foundUser.isAdmin
+          role: foundUser.role
         };
 
         return res
