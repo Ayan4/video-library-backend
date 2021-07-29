@@ -42,12 +42,18 @@ exports.deleteComment = async (req, res) => {
   const id = req.user.userId;
   const videoId = req.params.videoId;
   const commentId = req.params.commentId;
+  const isAdmin = req.body.isAdmin;
+
   try {
     let video = await Video.findById(videoId);
     const userComments = video.comments
       .map(item => {
         if (item.user == id) {
           return item;
+        } else if (isAdmin) {
+          return item;
+        } else {
+          return;
         }
       })
       .filter(item => item != null);
