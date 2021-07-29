@@ -63,7 +63,8 @@ exports.userLogin = async (req, res) => {
         const user = {
           token,
           name: foundUser.firstName,
-          id: foundUser._id
+          id: foundUser._id,
+          isAdmin: foundUser.isAdmin
         };
 
         return res
