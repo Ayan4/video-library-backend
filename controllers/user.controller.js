@@ -62,7 +62,8 @@ exports.userLogin = async (req, res) => {
 
         const user = {
           token,
-          name: foundUser.firstName
+          name: foundUser.firstName,
+          id: foundUser._id
         };
 
         return res
