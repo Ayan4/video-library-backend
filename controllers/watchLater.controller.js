@@ -1,4 +1,4 @@
-const WatchLater = require("../models/watchLater.model");
+const WatchLater = require("../models/WatchLater.model");
 
 exports.getWatchLaterPlaylist = async (req, res) => {
   const id = req.user.userId;
