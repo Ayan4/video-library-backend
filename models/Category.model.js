@@ -5,6 +5,10 @@ const categoriesSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true
+    },
+    categoryImage: {
+      type: String,
+      required: true
     }
   },
   { timestamp: true }

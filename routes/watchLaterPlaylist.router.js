@@ -8,7 +8,7 @@ const {
   getWatchLaterPlaylist,
   addToWatchLaterPlaylist,
   removeFromWatchLaterPlaylist
-} = require("../controllers/watchLater.controller");
+} = require("../controllers/WatchLater.controller");
 
 router.use("/", authToken);
 router.use("/", createWatchLaterPlaylist);
