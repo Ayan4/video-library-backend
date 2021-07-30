@@ -10,6 +10,7 @@ const playlistRoute = require("./routes/playlist.router");
 const likedPlaylistRoute = require("./routes/likedPlaylist.router");
 const watchLaterPlaylistRoute = require("./routes/watchLaterPlaylist.router");
 const historyRoute = require("./routes/history.router");
+const categoryRoute = require("./routes/category.router");
 
 const app = express();
 app.use(cors());
@@ -30,6 +31,7 @@ app.use("/likedvideos", likedPlaylistRoute);
 app.use("/watchlater", watchLaterPlaylistRoute);
 app.use("/history", historyRoute);
 app.use("/playlist", playlistRoute);
+app.use("/category", categoryRoute);
 
 // Error Handler routes
 app.use((req, res, next) => {
