@@ -1,6 +1,6 @@
 const Liked = require("../models/Liked.model");
 const History = require("../models/History.model");
-const WatchLater = require("../models/WatchLater.model");
+const WatchLater = require("../models/watchLater.model");
 
 exports.createLikedPlaylist = async (req, res, next) => {
   const id = req.user.userId;
